@@ -11,8 +11,8 @@ namespace NwDataBase
 
     public class DataBase<T> : AbstactDataBase, IDataBaseReader<T>, IDataBaseWriter<T>
     {
-        private BlockingCollection<T> _itemsCollection = new BlockingCollection<T>();
-        public IEnumerable<T> ItemsCollection => _itemsCollection.ToArray();
+        private BlockingCollection<T> _items = new BlockingCollection<T>();
+        public IEnumerable<T> Items => _items.ToArray();
 
         public DataBase()
         { }
@@ -23,14 +23,14 @@ namespace NwDataBase
         }
 
         public bool AddItem(T item)
-            => _itemsCollection.TryAdd(item);
+            => _items.TryAdd(item);
 
         public bool RemoveItem(T item)
-            => _itemsCollection.TryTake(out _);
+            => _items.TryTake(out _);
 
-        public void AddItems(IEnumerable<T> itemsCollection)
+        public void AddItems(IEnumerable<T> items)
         {
-            foreach (var item in itemsCollection)
+            foreach (var item in items)
             {
                 AddItem(item);
             }

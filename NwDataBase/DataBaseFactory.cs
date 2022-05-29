@@ -7,7 +7,7 @@ namespace NwDataBase
     {
         private static object _sync = new object();
         private static DataBaseFactory? _dataBaseFactory;
-        private List<AbstactDataBase> _dataBasesCollection = new List<AbstactDataBase>();
+        private List<AbstactDataBase> _dataBases = new List<AbstactDataBase>();
 
         public static DataBaseFactory Instance
         {
@@ -31,11 +31,11 @@ namespace NwDataBase
         {
             lock (_sync)
             {
-                var dataBase = _dataBasesCollection.FirstOrDefault(db => db?.ItemType == typeof(T));
+                var dataBase = _dataBases.FirstOrDefault(db => db?.ItemType == typeof(T));
                 if (dataBase == null)
                 {
                     dataBase = new DataBase<T>();
-                    _dataBasesCollection.Add(dataBase);
+                    _dataBases.Add(dataBase);
                 }
                 return (DataBase<T>)dataBase;
             }
