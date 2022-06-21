@@ -26,7 +26,7 @@ namespace NwDataBase
             => _items.TryAdd(item);
 
         public bool RemoveItem(T item)
-            => _items.TryTake(out _);
+            => _items.TryTake(out item);
 
         public void AddItems(IEnumerable<T> items)
         {
